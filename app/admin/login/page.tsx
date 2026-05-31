@@ -1,26 +1,43 @@
-export default function AdminLoginPage() {
+import { loginAdmin } from "./actions/login";
+
+type AdminLoginPageProps = {
+  searchParams: Promise<{
+    error?: string;
+  }>;
+};
+
+export default async function AdminLoginPage({
+  searchParams,
+}: AdminLoginPageProps) {
+  const { error } = await searchParams;
+
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-        <p className="text-sm font-medium uppercase tracking-wide text-gray-500">
+    <main className="flex min-h-screen items-center justify-center bg-[var(--secondary)] px-4">
+      <div className="w-full max-w-md rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+        <p className="text-sm font-medium uppercase tracking-wide text-[var(--secondary-foreground)]">
           Admin Panel
         </p>
 
-        <h1 className="mt-2 text-2xl font-bold text-gray-950">
-          Login Admin
-        </h1>
+        <h1 className="mt-2 text-2xl font-bold text-gray-950">Login Admin</h1>
 
         <p className="mt-2 text-sm leading-6 text-gray-600">
           Masuk untuk mengelola profil sekolah, berita, dan data kelulusan.
         </p>
 
-        <form className="mt-6 space-y-4">
+        {error ? (
+          <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+            {error}
+          </div>
+        ) : null}
+
+        <form action={loginAdmin} className="mt-6 space-y-4">
           <div>
             <label className="text-sm font-medium text-gray-800">Email</label>
             <input
+              name="email"
               type="email"
               placeholder="admin@sekolah.sch.id"
-              className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-gray-950"
+              className="mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
             />
           </div>
 
@@ -29,15 +46,16 @@ export default function AdminLoginPage() {
               Password
             </label>
             <input
+              name="password"
               type="password"
-              placeholder="••••••••"
-              className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-gray-950"
+              placeholder="Masukkan password"
+              className="mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
             />
           </div>
 
           <button
-            type="button"
-            className="w-full rounded-xl bg-gray-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-gray-800"
+            type="submit"
+            className="w-full rounded-xl bg-[var(--primary)] px-5 py-3 text-sm font-medium text-[var(--primary-foreground)] transition hover:opacity-90"
           >
             Masuk
           </button>

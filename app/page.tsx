@@ -2,7 +2,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-white">
       <section className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-20">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--primary)]">
           Z-School
         </p>
 
@@ -18,13 +18,13 @@ export default function HomePage() {
         <div className="flex flex-wrap gap-3">
           <a
             href="/profil"
-            className="rounded-xl bg-gray-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-gray-800"
+            className="rounded-xl bg-[var(--primary)] px-5 py-3 text-sm font-medium text-[var(--primary-foreground)] transition hover:opacity-90"
           >
             Lihat Profil
           </a>
           <a
             href="/cek-kelulusan"
-            className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium transition hover:bg-gray-50"
+            className="rounded-xl border border-gray-300 px-5 py-3 text-sm font-medium text-gray-800 transition hover:border-[var(--primary)] hover:bg-[var(--secondary)] hover:text-[var(--primary)]"
           >
             Cek Kelulusan
           </a>
