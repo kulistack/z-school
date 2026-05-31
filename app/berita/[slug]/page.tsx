@@ -11,10 +11,16 @@ export default async function BeritaDetailPage({
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-12">
-      <p className="text-sm text-gray-500">Slug: {slug}</p>
-      <h1 className="mt-2 text-3xl font-bold">Detail Berita</h1>
+      <p className="text-sm font-medium uppercase tracking-wide text-gray-500">
+        Detail Berita
+      </p>
+
+      <h1 className="mt-2 text-3xl font-bold text-gray-950">
+        Detail Berita Sekolah
+      </h1>
+
       <p className="mt-4 text-gray-600">
-        Halaman ini akan menampilkan detail berita berdasarkan slug.
+        Slug berita: <span className="font-medium text-gray-950">{slug}</span>
       </p>
     </main>
   );
