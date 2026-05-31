@@ -1,24 +1,7 @@
+import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
+import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import Link from "next/link";
 import { logoutAdmin } from "./actions/logout";
-
-const adminMenus = [
-  {
-    label: "Dashboard",
-    href: "/admin/dashboard",
-  },
-  {
-    label: "Setting Website",
-    href: "/admin/setting",
-  },
-  {
-    label: "Berita",
-    href: "/admin/berita",
-  },
-  {
-    label: "Kelulusan",
-    href: "/admin/kelulusan",
-  },
-];
 
 export default function AdminLayout({
   children,
@@ -35,17 +18,7 @@ export default function AdminLayout({
           <h1 className="mt-2 text-xl font-bold text-gray-950">Admin Panel</h1>
         </Link>
 
-        <nav className="mt-8 space-y-2">
-          {adminMenus.map((menu) => (
-            <Link
-              key={menu.href}
-              href={menu.href}
-              className="block rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-[var(--secondary)] hover:text-[var(--primary)]"
-            >
-              {menu.label}
-            </Link>
-          ))}
-        </nav>
+        <AdminSidebar />
 
         <form action={logoutAdmin} className="absolute bottom-5 left-5 right-5">
           <button
@@ -71,17 +44,7 @@ export default function AdminLayout({
             </form>
           </div>
 
-          <nav className="mt-4 flex gap-2 overflow-x-auto">
-            {adminMenus.map((menu) => (
-              <Link
-                key={menu.href}
-                href={menu.href}
-                className="whitespace-nowrap rounded-xl border border-gray-200 px-3 py-2 text-sm text-gray-700"
-              >
-                {menu.label}
-              </Link>
-            ))}
-          </nav>
+          <AdminMobileNav />
         </header>
 
         {children}

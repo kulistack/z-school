@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { importGraduationStudents } from "./actions/import-graduation-students";
 import { deleteGraduationStudents } from "./actions/delete-graduation-students";
+import { ConfirmDeleteButton } from "@/components/admin/ConfirmDeleteButton";
 
 type AdminKelulusanPageProps = {
   searchParams: Promise<{
@@ -136,12 +137,11 @@ export default async function AdminKelulusanPage({
           </form>
 
           <form action={deleteGraduationStudents} className="mt-4">
-            <button
-              type="submit"
+            <ConfirmDeleteButton
+              label="Hapus Semua Data"
+              message="Yakin ingin menghapus semua data kelulusan? Tindakan ini tidak bisa dibatalkan."
               className="w-full rounded-xl border border-red-200 px-5 py-3 text-sm font-medium text-red-700 transition hover:bg-red-50"
-            >
-              Hapus Semua Data
-            </button>
+            />
           </form>
         </section>
 

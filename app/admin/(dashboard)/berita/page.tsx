@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { deleteNews } from "./actions/delete-news";
+import { ConfirmDeleteButton } from "@/components/admin/ConfirmDeleteButton";
 
 type AdminBeritaPageProps = {
   searchParams: Promise<{
@@ -116,12 +117,7 @@ export default async function AdminBeritaPage({
 
                         <form action={deleteNews}>
                           <input type="hidden" name="id" value={item.id} />
-                          <button
-                            type="submit"
-                            className="rounded-lg border border-red-200 px-3 py-2 text-xs font-medium text-red-700 hover:bg-red-50"
-                          >
-                            Hapus
-                          </button>
+                          <ConfirmDeleteButton message="Yakin ingin menghapus berita ini?" />
                         </form>
                       </div>
                     </td>
