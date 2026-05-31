@@ -1,3 +1,7 @@
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
 type BeritaDetailPageProps = {
   params: Promise<{
     slug: string;
@@ -9,19 +13,52 @@ export default async function BeritaDetailPage({
 }: BeritaDetailPageProps) {
   const { slug } = await params;
 
+  const supabase = await createClient();
+
+  const { data: news } = await supabase
+    .from("news")
+    .select("title, excerpt, content, published_at, created_at")
+    .eq("slug", slug)
+    .eq("is_published", true)
+    .maybeSingle();
+
+  if (!news) {
+    notFound();
+  }
+
   return (
     <main className="mx-auto max-w-3xl px-4 py-12">
-      <p className="text-sm font-medium uppercase tracking-wide text-gray-500">
-        Detail Berita
+      <Link
+        href="/berita"
+        className="text-sm font-medium text-[var(--primary)]"
+      >
+        ← Kembali ke Berita
+      </Link>
+
+      <p className="mt-8 text-sm font-medium uppercase tracking-wide text-[var(--primary)]">
+        Berita Sekolah
       </p>
 
-      <h1 className="mt-2 text-3xl font-bold text-gray-950">
-        Detail Berita Sekolah
+      <h1 className="mt-3 text-3xl font-bold leading-tight text-gray-950 md:text-4xl">
+        {news.title}
       </h1>
 
-      <p className="mt-4 text-gray-600">
-        Slug berita: <span className="font-medium text-gray-950">{slug}</span>
+      <p className="mt-4 text-sm text-gray-500">
+        Dipublikasikan pada{" "}
+        {new Date(news.published_at || news.created_at).toLocaleDateString(
+          "id-ID"
+        )}
       </p>
+
+      {news.excerpt ? (
+        <p className="mt-6 rounded-2xl bg-[var(--secondary)] p-5 text-lg leading-8 text-[var(--secondary-foreground)]">
+          {news.excerpt}
+        </p>
+      ) : null}
+
+      <article className="mt-8 whitespace-pre-line text-base leading-8 text-gray-700">
+        {news.content}
+      </article>
     </main>
   );
 }
