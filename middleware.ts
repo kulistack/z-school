@@ -37,13 +37,18 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
-  const isAdminRoute = pathname.startsWith("/admin");
+  const isAdminPageRoute = pathname.startsWith("/admin");
+  const isAdminApiRoute = pathname.startsWith("/api/admin");
   const isLoginRoute = pathname === "/admin/login";
 
-  if (isAdminRoute && !isLoginRoute && !user) {
+  if (isAdminPageRoute && !isLoginRoute && !user) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin/login";
     return NextResponse.redirect(url);
+  }
+
+  if (isAdminApiRoute && !user) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
 
   if (isLoginRoute && user) {
@@ -56,5 +61,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/api/admin/:path*"],
 };

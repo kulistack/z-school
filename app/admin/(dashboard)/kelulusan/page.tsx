@@ -71,9 +71,7 @@ export default async function AdminKelulusanPage({
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">
         <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm lg:col-span-1">
-          <h2 className="text-lg font-semibold text-gray-950">
-            Import Excel
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-950">Import Excel</h2>
 
           <p className="mt-2 text-sm leading-6 text-gray-600">
             Upload file Excel dengan format kolom yang sudah ditentukan. Proses
@@ -85,6 +83,33 @@ export default async function AdminKelulusanPage({
             <p className="mt-1">
               nis, nisn, student_name, class_name, major, status, note
             </p>
+          </div>
+          <a
+            href="/api/admin/graduation/template"
+            className="mt-4 block rounded-xl border border-gray-300 px-5 py-3 text-center text-sm font-medium text-gray-700 transition hover:border-[var(--primary)] hover:bg-[var(--secondary)] hover:text-[var(--primary)]"
+          >
+            Download Template Excel
+          </a>
+
+          <div className="mt-4 rounded-xl border border-yellow-200 bg-yellow-50 p-4 text-sm leading-6 text-yellow-800">
+            <p className="font-semibold">Catatan:</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>
+                Kolom <strong>student_name</strong> dan <strong>status</strong>{" "}
+                wajib diisi.
+              </li>
+              <li>
+                Minimal salah satu dari <strong>nis</strong> atau{" "}
+                <strong>nisn</strong> wajib diisi.
+              </li>
+              <li>
+                Status hanya boleh <strong>LULUS</strong> atau{" "}
+                <strong>TIDAK_LULUS</strong>.
+              </li>
+              <li>
+                Format kolom NIS/NISN di Excel sebaiknya dibuat sebagai Text.
+              </li>
+            </ul>
           </div>
 
           <form action={importGraduationStudents} className="mt-6 space-y-4">
@@ -170,9 +195,7 @@ export default async function AdminKelulusanPage({
                               : "bg-red-50 text-red-700"
                           }`}
                         >
-                          {student.status === "LULUS"
-                            ? "Lulus"
-                            : "Tidak Lulus"}
+                          {student.status === "LULUS" ? "Lulus" : "Tidak Lulus"}
                         </span>
                       </td>
                     </tr>
