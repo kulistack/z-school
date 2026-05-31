@@ -11,7 +11,7 @@ export default async function CekKelulusanPage() {
     .maybeSingle();
 
   return (
-    <main className="min-h-screen bg-[var(--secondary)] px-4 py-12">
+   <main className="bg-[var(--secondary)] px-4 py-12">
       <div className="mx-auto max-w-2xl">
         <div className="rounded-3xl bg-white p-6 shadow-sm md:p-8">
           <p className="text-sm font-medium uppercase tracking-wide text-[var(--primary)]">
