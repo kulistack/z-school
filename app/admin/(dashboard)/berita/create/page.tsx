@@ -38,6 +38,21 @@ export default async function CreateNewsPage({
           className="mt-8 space-y-6 rounded-2xl border border-gray-200 bg-white p-6"
         >
           <div>
+            <label className="text-sm font-medium text-gray-800">
+              Thumbnail / Cover Berita
+            </label>
+            <input
+              name="cover_image"
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              className="mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-950 outline-none transition file:mr-4 file:rounded-lg file:border-0 file:bg-[var(--primary)] file:px-4 file:py-2 file:text-sm file:font-medium file:text-[var(--primary-foreground)] hover:file:opacity-90 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
+            />
+            <p className="mt-2 text-xs text-gray-500">
+              Format: JPG, PNG, WebP, atau GIF. Maksimal 5MB.
+            </p>
+          </div>
+
+          <div>
             <label className="text-sm font-medium text-gray-800">Judul</label>
             <input
               name="title"

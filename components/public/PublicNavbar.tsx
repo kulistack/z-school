@@ -25,7 +25,7 @@ export async function PublicNavbar() {
 
   const { data: setting } = await supabase
     .from("site_settings")
-    .select("school_name, school_level")
+    .select("school_name, school_level, logo_url")
     .limit(1)
     .maybeSingle();
 
@@ -33,8 +33,18 @@ export async function PublicNavbar() {
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[var(--primary)] text-sm font-bold uppercase text-[var(--primary-foreground)]">
-            Z
+          <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-2xl border border-gray-200 bg-white">
+            {setting?.logo_url ? (
+              <img
+                src={setting.logo_url}
+                alt={`Logo ${setting.school_name || "sekolah"}`}
+                className="h-full w-full object-contain p-1"
+              />
+            ) : (
+              <span className="flex h-full w-full items-center justify-center bg-[var(--primary)] text-sm font-bold uppercase text-[var(--primary-foreground)]">
+                Z
+              </span>
+            )}
           </div>
 
           <div>

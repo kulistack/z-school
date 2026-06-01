@@ -63,6 +63,33 @@ export default async function EditNewsPage({
           />
 
           <div>
+            <label className="text-sm font-medium text-gray-800">
+              Thumbnail / Cover Berita
+            </label>
+
+            {news.cover_image_url ? (
+              <div className="mt-2 overflow-hidden rounded-xl border border-gray-200">
+                <img
+                  src={news.cover_image_url}
+                  alt={news.title}
+                  className="h-56 w-full object-cover"
+                />
+              </div>
+            ) : null}
+
+            <input
+              name="cover_image"
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              className="mt-3 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-950 outline-none transition file:mr-4 file:rounded-lg file:border-0 file:bg-[var(--primary)] file:px-4 file:py-2 file:text-sm file:font-medium file:text-[var(--primary-foreground)] hover:file:opacity-90 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
+            />
+
+            <p className="mt-2 text-xs text-gray-500">
+              Kosongkan jika tidak ingin mengganti thumbnail.
+            </p>
+          </div>
+
+          <div>
             <label className="text-sm font-medium text-gray-800">Judul</label>
             <input
               name="title"

@@ -7,7 +7,7 @@ export default async function HomePage() {
   const { data: setting } = await supabase
     .from("site_settings")
     .select(
-      "school_name, school_level, about, accreditation, headmaster_name, address"
+      "school_name, school_level, about, accreditation, headmaster_name, address, logo_url, banner_url",
     )
     .limit(1)
     .maybeSingle();
@@ -21,12 +21,29 @@ export default async function HomePage() {
 
   return (
     <main>
-      <section className="bg-[var(--secondary)]">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2 md:items-center md:py-24">
+      <section className="relative overflow-hidden bg-[var(--secondary)]">
+        {setting?.banner_url ? (
+          <div className="absolute inset-0">
+            <img
+              src={setting.banner_url}
+              alt={setting.school_name || "Banner sekolah"}
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-white/85" />
+          </div>
+        ) : null}
+
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2 md:items-center md:py-24">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--primary)]">
-              {setting?.school_level || "school"}
-            </p>
+            {setting?.logo_url ? (
+              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl border border-white/70 bg-white p-3 shadow-sm">
+                <img
+                  src={setting.logo_url}
+                  alt={`Logo ${setting.school_name || "sekolah"}`}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+            ) : null}
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-gray-950 md:text-6xl">
               {setting?.school_name || "Z-School"}
@@ -54,7 +71,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/70 bg-white p-6 shadow-sm">
+          <div className="rounded-3xl border border-white/70 bg-white/95 p-6 shadow-sm backdrop-blur">
             <div className="rounded-2xl bg-[var(--primary)] p-6 text-[var(--primary-foreground)]">
               <p className="text-sm font-medium uppercase tracking-wide opacity-80">
                 Informasi Sekolah
@@ -71,21 +88,21 @@ export default async function HomePage() {
             </div>
 
             <div className="mt-5 grid gap-4">
-              <div className="rounded-2xl border border-gray-200 p-4">
+              <div className="rounded-2xl border border-gray-200 bg-white p-4">
                 <p className="text-sm text-gray-500">Akreditasi</p>
                 <p className="mt-1 font-semibold text-gray-950">
                   {setting?.accreditation || "-"}
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-gray-200 p-4">
+              <div className="rounded-2xl border border-gray-200 bg-white p-4">
                 <p className="text-sm text-gray-500">Kepala Sekolah</p>
                 <p className="mt-1 font-semibold text-gray-950">
                   {setting?.headmaster_name || "-"}
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-gray-200 p-4">
+              <div className="rounded-2xl border border-gray-200 bg-white p-4">
                 <p className="text-sm text-gray-500">Alamat</p>
                 <p className="mt-1 text-sm leading-6 text-gray-950">
                   {setting?.address || "-"}
@@ -124,7 +141,7 @@ export default async function HomePage() {
               >
                 <p className="text-xs font-medium uppercase tracking-wide text-[var(--primary)]">
                   {new Date(
-                    item.published_at || item.created_at
+                    item.published_at || item.created_at,
                   ).toLocaleDateString("id-ID")}
                 </p>
 
@@ -156,9 +173,7 @@ export default async function HomePage() {
         <div className="mx-auto grid max-w-6xl gap-6 px-4 py-14 md:grid-cols-3">
           <div className="rounded-2xl bg-white p-6 shadow-sm">
             <p className="text-3xl font-bold text-[var(--primary)]">01</p>
-            <h3 className="mt-3 font-semibold text-gray-950">
-              Profil Sekolah
-            </h3>
+            <h3 className="mt-3 font-semibold text-gray-950">Profil Sekolah</h3>
             <p className="mt-2 text-sm leading-6 text-gray-600">
               Tampilkan identitas, sejarah, visi, misi, dan kontak sekolah.
             </p>
@@ -166,9 +181,7 @@ export default async function HomePage() {
 
           <div className="rounded-2xl bg-white p-6 shadow-sm">
             <p className="text-3xl font-bold text-[var(--primary)]">02</p>
-            <h3 className="mt-3 font-semibold text-gray-950">
-              Berita Sekolah
-            </h3>
+            <h3 className="mt-3 font-semibold text-gray-950">Berita Sekolah</h3>
             <p className="mt-2 text-sm leading-6 text-gray-600">
               Publikasikan informasi dan pengumuman terbaru kepada publik.
             </p>
@@ -176,9 +189,7 @@ export default async function HomePage() {
 
           <div className="rounded-2xl bg-white p-6 shadow-sm">
             <p className="text-3xl font-bold text-[var(--primary)]">03</p>
-            <h3 className="mt-3 font-semibold text-gray-950">
-              Cek Kelulusan
-            </h3>
+            <h3 className="mt-3 font-semibold text-gray-950">Cek Kelulusan</h3>
             <p className="mt-2 text-sm leading-6 text-gray-600">
               Siswa cukup memasukkan NIS atau NISN untuk melihat hasil.
             </p>

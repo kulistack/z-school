@@ -17,7 +17,7 @@ export default async function BeritaDetailPage({
 
   const { data: news } = await supabase
     .from("news")
-    .select("title, excerpt, content, published_at, created_at")
+    .select("title, excerpt, content, cover_image_url, published_at, created_at")
     .eq("slug", slug)
     .eq("is_published", true)
     .maybeSingle();
@@ -49,6 +49,16 @@ export default async function BeritaDetailPage({
           "id-ID"
         )}
       </p>
+
+      {news.cover_image_url ? (
+        <div className="mt-8 overflow-hidden rounded-2xl border border-gray-200">
+          <img
+            src={news.cover_image_url}
+            alt={news.title}
+            className="max-h-[420px] w-full object-cover"
+          />
+        </div>
+      ) : null}
 
       {news.excerpt ? (
         <p className="mt-6 rounded-2xl bg-[var(--secondary)] p-5 text-lg leading-8 text-[var(--secondary-foreground)]">
